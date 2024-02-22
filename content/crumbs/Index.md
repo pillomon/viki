@@ -4,6 +4,8 @@ longform:
   title: crumbs
   workflow: Default Workflow
   sceneFolder: /
-  scenes: []
+  scenes:
+    - Introduction
+  sceneTemplate: templates/crumb.md
   ignoredFiles: []
 ---
