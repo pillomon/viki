@@ -5,69 +5,10 @@ tags:
   - Docker
   - Yarn
 ---
-```
-FROM node:20.11.1-alpine AS base  
-  
-# Install dependencies only when needed  
-FROM base AS deps  
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.  
-RUN apk update && apk add --no-cache libc6-compat  
-WORKDIR /app  
-  
-# Install dependencies based on the preferred package manager  
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./  
-RUN \  
-  if [ -f yarn.lock ]; then yarn install --immutable --immutable-cache --check-cache; \  
-  else echo "Lockfile not found." && exit 1; \  
-  fi  
-  
-# Rebuild the source code only when needed  
-FROM base AS builder  
-WORKDIR /app  
-COPY --from=deps /app/node_modules ./node_modules  
-COPY . .  
-  
-# Next.js collects completely anonymous telemetry data about general usage.  
-# Learn more here: https://nextjs.org/telemetry  
-# Uncomment the following line in case you want to disable telemetry during the build.  
-# ENV NEXT_TELEMETRY_DISABLED 1  
-RUN apk add git  
-RUN \  
-  if [ -f yarn.lock ]; then yarn run build; \  
-  else echo "Lockfile not found." && exit 1; \  
-  fi  
-  
-# Production image, copy all the files and run next  
-FROM base AS runner  
-WORKDIR /app  
-  
-ENV NODE_ENV production  
-# Uncomment the following line in case you want to disable telemetry during runtime.  
-# ENV NEXT_TELEMETRY_DISABLED 1  
-  
-RUN addgroup --system --gid 1001 nodejs  
-RUN adduser --system --uid 1001 nextjs  
-  
-COPY --from=builder /app/public ./public  
-  
-# Set the correct permission for prerender cache  
-RUN mkdir build  
-RUN chown nextjs:nodejs build  
-  
-# Automatically leverage output traces to reduce image size  
-# https://nextjs.org/docs/advanced-features/output-file-tracing  
-COPY --from=builder --chown=nextjs:nodejs /app/buiold/standalone ./  
-COPY --from=builder --chown=nextjs:nodejs /app/build/static ./build/static  
-  
-USER nextjs  
-  
-EXPOSE 5713  
-  
-ENV PORT 5713  
-# set hostname to localhost  
-ENV HOSTNAME "127.0.0.1"  
-  
-# server.js is created by next build from the standalone output  
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output  
-CMD ["yarn", "start"]
-```
+## Docker와 PM2를 같이 쓰는것이 좋을까?
+- Application이 충돌하거나 원인 모를 이유로 종료될 경우 PM2가 자동으로 서비스를 재시작해준다.
+- 인스턴스를 여러개 실행하여 로드 밸런싱을 구현할 수 있다. 트래픽이 많은 상황에서 애플리케이션의 성능을 향상시킬 수 있다.
+- 모니터링과 로그 관리 기능을 제공한다.
+
+## K8S를 Docker와 같이 사용할 경우엔 PM2가 필요할까?
+- 쿠버네티스 자체가 컨테이너 오케스트레이션 시스템이므로, application의 배포, 확장 및 관리를 위한 많은 기능을 제공하기 때문에 PM2를 같이 사용할 이유는 없다.
