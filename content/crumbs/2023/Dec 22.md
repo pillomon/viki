@@ -52,3 +52,6 @@ const handleSelectTransition = (
 ```
 
 - React API로 startTransition을 제공하는 것 같다. isPending이 필요없으면 API를 사용하는 것이 좋아보인다.
+
+## References
+[react-ko.dev - useTransition](https://react-ko.dev/reference/react/useTransition)
