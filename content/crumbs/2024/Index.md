@@ -5,8 +5,7 @@ longform:
   workflow: Default Workflow
   sceneFolder: /
   scenes:
-    - Feb 15
-    - Feb 16
+    - Mar 05
   sceneTemplate: templates/crumb.md
   ignoredFiles: []
 ---

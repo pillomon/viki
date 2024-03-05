@@ -3,7 +3,7 @@ title: Feb 27
 draft: false
 tags:
   - Docker
-  - Yarn
+  - PM2
 ---
 ## Docker와 PM2를 같이 쓰는것이 좋을까?
 - Application이 충돌하거나 원인 모를 이유로 종료될 경우 PM2가 자동으로 서비스를 재시작해준다.
