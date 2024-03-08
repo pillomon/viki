@@ -1,11 +1,9 @@
 ---
 longform:
   format: scenes
-  title: "2024"
+  title: 3_Mar
   workflow: Default Workflow
   sceneFolder: /
-  scenes:
-    - Mar 05
-  sceneTemplate: templates/crumb.md
+  scenes: []
   ignoredFiles: []
 ---

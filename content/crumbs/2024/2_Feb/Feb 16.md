@@ -5,7 +5,7 @@ tags:
   - React
   - Jest
 ---
-# Custom Hook 테스트 코드 작성
+# 1. Custom Hook 테스트 코드 작성
 
 - 구현한 useQueryParams Hook은 NextJS의 useRouter를 사용하여 query parameter를 제어하는 로직을 추상화한 Hook이다.
 - 예전에는 Custom Hook 테스트에 테스트용 컴포넌트를 별도로 만들어서 render를 통한 테스트를 진행하였던 것 같다. 현재는 @testing-library/react의 reactHook을 사용해서 테스트를 진행한다.

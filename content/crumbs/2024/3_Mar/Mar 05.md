@@ -2,6 +2,8 @@
 title: Mar 05
 draft: false
 tags:
+  - Docker
+  - Shell
 ---
 ## 1. Docker 명령어
 ```bash

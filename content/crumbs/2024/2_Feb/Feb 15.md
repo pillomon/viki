@@ -5,6 +5,7 @@ tags:
   - typescript
   - class
 ---
+## 1. Class private 필드 동작 방식?
 ```typescript
 class Human {
   #age = 10;
